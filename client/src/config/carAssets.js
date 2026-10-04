@@ -1,11 +1,12 @@
 /**
- * Car models served from project root /cars.
- * Files are expected to be accessible at: http://localhost:4000/cars/<file>.glb
+ * Car models served by the NeoDrive API.
  */
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/$/, '')
+
 export const POLY_CARS = {
   // Hero: Futuristic electric sports car
   x: {
-    glb: 'http://localhost:4000/cars/aston_martins_future_car_model_pk_version_free.glb',
+    glb: `${API_URL}/cars/aston_martins_future_car_model_pk_version_free.glb`,
     name: 'NeoDrive X',
     page: 'https://sketchfab.com/3d-models/futuristic-electric-sports-car-concept-design-cad5ec62361141068a067a49e6c0e12b',
     scale: 0.55,
@@ -15,7 +16,7 @@ export const POLY_CARS = {
 
   // Showroom: Futuristic supercar
   s: {
-    glb: 'http://localhost:4000/cars/lamborghini_centenario.glb',
+    glb: `${API_URL}/cars/lamborghini_centenario.glb`,
     name: 'NeoDrive S',
     page: 'https://sketchfab.com/3d-models/futuristic-supercar-concept-854a503a4bc146ada7d649ef121bcde3',
     scale: 0.55,
@@ -25,7 +26,7 @@ export const POLY_CARS = {
 
   // Customization: Retro-futuristic car
   z: {
-    glb: 'http://localhost:4000/cars/mclaren_mp4-12c_ultimate.glb',
+    glb: `${API_URL}/cars/mclaren_mp4-12c_ultimate.glb`,
     name: 'NeoDrive Z',
     page: 'https://sketchfab.com/3d-models/retro-futuristic-car-0b9a8e5101ab49ef88caa8d257c620f3',
     scale: 0.55,
@@ -34,9 +35,9 @@ export const POLY_CARS = {
   },
 }
 
-/** Home hero — Tesla Model 3 GLB in `/cars` (served by API static `/cars`) */
+/** Home hero — Tesla Model 3 GLB */
 export const HERO_CAR = {
-  glb: 'http://localhost:4000/cars/tesla_m3_model.glb',
+  glb: `${API_URL}/cars/tesla_m3_model.glb`,
   name: 'Tesla Model 3',
   scale: 0.42,
   position: [0, -0.14, 0],
@@ -44,11 +45,14 @@ export const HERO_CAR = {
 }
 
 /** Preload list — dedupe URLs */
-export const POLY_CAR_URLS = [...new Set([HERO_CAR.glb, ...Object.values(POLY_CARS).map((c) => c.glb)])]
+export const POLY_CAR_URLS = [
+  ...new Set([
+    HERO_CAR.glb,
+    ...Object.values(POLY_CARS).map((c) => c.glb),
+  ]),
+]
 
-/** If a poster exists for a GLB, this will point to it. Otherwise it's fine (backgroundImage will just be missing). */
+/** If a poster exists for a GLB, this will point to it. */
 export function polyPreviewImage(glbUrl) {
   return glbUrl.replace(/\.glb$/i, '.jpg')
 }
-
-
