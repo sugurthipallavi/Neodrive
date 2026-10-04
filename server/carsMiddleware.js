@@ -5,7 +5,7 @@ const path = require('path')
  * Usage: app.use('/cars', carsMiddleware())
  */
 module.exports = function carsMiddleware(app) {
-  const carsDir = path.join(__dirname, '..', 'cars')
+  const carsDir = path.join(__dirname, 'cars')
   const staticMiddleware = require('express').static
   app.use('/cars', staticMiddleware(carsDir))
 }
